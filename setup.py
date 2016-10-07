@@ -13,7 +13,8 @@ setup(name=PROJECT_NAME,
           'cymon',
           'shodan',
           'mongoengine',
-          'stem'
+          'stem',
+          'logging'
       ],
       docs_require=[
           'sphinx'
