@@ -9,4 +9,3 @@ def initLogging():
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
     return logger
-    #logger.debug('often makes a very good meal of %s', 'visiting tourists')
