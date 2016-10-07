@@ -87,7 +87,7 @@ def handle_timeout(process,onion):
     with Controller.from_port(port=9051) as torcontrol:
 
         # authenticate to our local TOR controller
-        torcontrol.authenticate("Ev3EcDC")
+        torcontrol.authenticate("coucou53")
 
         # send the signal for a new identity
         torcontrol.signal(Signal.NEWNYM)
