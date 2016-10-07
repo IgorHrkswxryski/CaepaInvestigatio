@@ -1,7 +1,12 @@
 from mongoengine import connect
+from logging_conf import initLogging
 
 def connectionToDB():
     """ Connect to mongoDB database """
-
     connection = connect('TORUser')
-    print(connection)
+    # TEST DEBUGGING
+    initLogging().debug(connection)
+    return connection
+
+connectionToDB()
+

@@ -6,11 +6,13 @@ import bson
 
 class Collect(mongoengine.Document):
     """ This class contain all onions of our TOR scan """
+
     meta = {
         'indexes':[
             'hiddenService'
         ]
     }
+
     # onion id
     #id = mongoengine.StringField(primary_key=True, default=(lambda : str(bson.ObjectId())))
 
@@ -72,19 +74,31 @@ class Collect(mongoengine.Document):
     # server xmpp detected
     xmppDetected = mongoengine.BooleanField()
 
-
+    # server powered by
     serverPoweredBy = mongoengine.StringField()
 
     # WEB server version
     serverVersion = mongoengine.StringField()
+
+    # Apache Mod Status detected
     foundApacheModStatus = mongoengine.BooleanField()
+
+    # related onion services
     relatedOnionServices = mongoengine.ListField()
+
+    # related oion domains
     relatedOnionDomains = mongoengine.ListField()
+
+    # linked sites
     linkedSites = mongoengine.ListField()
+
+    # internal pages
     internalPages = mongoengine.ListField()
 
     # IP address
     ipAddresses = mongoengine.ListField()
+
+    # open directories
     openDirectories = mongoengine.ListField()
 
     # exif metadata
@@ -92,6 +106,8 @@ class Collect(mongoengine.Document):
 
     # interesting files
     interestingFiles = mongoengine.ListField()
+
+    # page refereced directories
     pageReferencedDirectories = mongoengine.ListField()
 
     # public PGP key
@@ -106,6 +122,7 @@ class Collect(mongoengine.Document):
     # title of WEB page
     pageTitle = mongoengine.StringField()
 
+    # response headers
     responseHeaders = mongoengine.DictField()
 
     # public Bitcoin address
