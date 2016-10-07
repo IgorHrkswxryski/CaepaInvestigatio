@@ -32,9 +32,3 @@ def send_db(data):
         c.update(**data)
     except:
         print('ERROR send to db')
-
-# coection to database
-connect.connectionToDB()
-
-#browse and insert into mongoDB all json files
-JSONtoDB()

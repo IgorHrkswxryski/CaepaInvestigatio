@@ -5,6 +5,7 @@ from stem import Signal
 from threading import Timer
 from threading import Event
 from caepainvestigatio import linkJSONtoDB
+from caepainvestigatio import connect
 
 import codecs
 import json
@@ -153,14 +154,15 @@ def add_new_onions(new_onion_list):
 
     return
 
-def start_onionrunner():
+def onionrunner(path_list_onion):
     """ start onionrunner """
 
     global onions
     global session_onions
 
+
     # get a list of onions to process
-    onions = get_onion_list("list.txt")
+    onions = get_onion_list(path_list_onion)
 
     # randomize the list a bit
     random.shuffle(onions)

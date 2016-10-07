@@ -15,8 +15,13 @@ tor --hash-password coucou53 > torhash
 # configure tor
 printf "ControlPort 9051\nControlListenAddress 127.0.0.1\nHashedControlPassword %s" | cat torhash >> /etc/tor/torrc
 
-
 #Restart TOR socket
 service tor restart
 
-python onionrunner.py
+# create virtualenv
+export VIRTUALENV_PATH="/tmp/virtualenv_caepainvestigation"
+
+virtualenv --python python3 VIRTUALENV_PATH
+.${VIRTUALENV_PATH}/bin/activate
+
+python setup.py develop

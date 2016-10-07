@@ -14,14 +14,15 @@ setup(name=PROJECT_NAME,
           'shodan',
           'mongoengine',
           'stem',
-          'logging'
+          'logging',
+          'argparse'
       ],
       docs_require=[
           'sphinx'
       ],
       entry_points={
           'console_scripts': [
-              "start_onionrunner = caepainvestigatio.onionrunner:start_onionrunner"
+              "start_onionrunner = caepainvestigatio.entry_points:run_onionscan"
           ]
       }
      )
