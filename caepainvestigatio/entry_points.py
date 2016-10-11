@@ -23,7 +23,7 @@ def run_onionscan(args=None):
     connect.connectionToDB()
     onionrunner.onionrunner(args.path)
 
-def SendJSONToDB(args=None):
+def send_json_to_db(args=None):
     """ sens json to db """
 
     parser = argparse.ArgumentParser()

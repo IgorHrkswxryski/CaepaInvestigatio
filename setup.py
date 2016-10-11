@@ -22,7 +22,8 @@ setup(name=PROJECT_NAME,
       ],
       entry_points={
           'console_scripts': [
-              "start_onionrunner = caepainvestigatio.entry_points:run_onionscan"
+              "start_onionrunner = caepainvestigatio.entry_points:run_onionscan",
+              "json_to_database = caepainvestigatio.entry_points:send_json_to_db"
           ]
       }
      )

@@ -4,6 +4,9 @@ import os
 import mongoengine
 import connect
 from ORM import collect
+from caepainvestigatio.logging_conf import initLogging
+
+log = initLogging()
 
 def JSONtoDB(files_list):
     """ browse and insert into mongoDB all json files """
@@ -13,9 +16,9 @@ def JSONtoDB(files_list):
             # browse JSON files
             try:
                 myJSON = json.load(data_file)
-                print(myJSON['hiddenService'])
+                log.debug(myJSON['hiddenService'])
             except:
-                print(json_file+".ERREUR")
+                log.error(json_file+".ERREUR")
                 return
         send_db(myJSON)
 
@@ -28,4 +31,4 @@ def send_db(data):
         col = collect.Collect.objects(hiddenService=data['hiddenService']).first()
         col.update(**data)
     except:
-        print('ERROR send to db')
+        log.error('ERROR send to db')

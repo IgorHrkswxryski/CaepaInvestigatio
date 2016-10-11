@@ -1,19 +1,18 @@
 """ onionrunner """
+import codecs
+import json
+import random
+import subprocess
+import time
 
 from stem.control import Controller
 from stem import Signal
 from threading import Timer
 from threading import Event
 from caepainvestigatio import linkJSONtoDB
-from caepainvestigatio import connect
+from caepainvestigatio.logging_conf import initLogging
 
-import codecs
-import json
-import os
-import random
-import subprocess
-import sys
-import time
+log = initLogging()
 
 onions         = []
 session_onions = []
@@ -29,17 +28,17 @@ def get_onion_list(path_list):
         with open(path_list, "rb") as filed:
             stored_onions = filed.read().splitlines()
     else:
-        print "[!] No onion master list. Download it!"
-        sys.exit(0)
+        log.error("[!] No onion master list. Download it!")
+        return None
 
-    print "[*] Total onions for scanning: %d" % len(stored_onions)
+    log.debug("[*] Total onions for scanning: %d" % len(stored_onions))
 
     return stored_onions
 
 def store_onion(onion):
     """  Stores an onion in the master list of onions. """
 
-    print "[++] Storing %s in master list." % onion
+    log.debug("[++] Storing %s in master list." % onion)
 
     with codecs.open("onion_master_list.txt", "ab", encoding="utf8") as filed:
         filed.write("%s\n" % onion)
@@ -49,7 +48,7 @@ def store_onion(onion):
 def run_onionscan(onion):
     """ Runs onion scan as a child process. """
 
-    print "[*] Onionscanning %s" % onion
+    log.debug("[*] Onionscanning %s" % onion)
 
     # fire up onionscan
     process = subprocess.Popen(["onionscan", "--jsonReport", "--simpleReport=false", onion], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -66,7 +65,7 @@ def run_onionscan(onion):
         process_timer.cancel()
         return stdout
 
-    print "[!!!] Process timed out!"
+    log.warning("[!!!] Process timed out!")
 
     return None
 
@@ -79,7 +78,7 @@ def handle_timeout(process,onion):
     # kill the onionscan process
     try:
         process.kill()
-        print "[!!!] Killed the onionscan process."
+        log.debug("[!!!] Killed the onionscan process.")
     except:
         pass
 
@@ -87,7 +86,7 @@ def handle_timeout(process,onion):
     with Controller.from_port(port=9051) as torcontrol:
 
         # authenticate to our local TOR controller
-        torcontrol.authenticate("coucou53")
+        torcontrol.authenticate("coucou")
 
         # send the signal for a new identity
         torcontrol.signal(Signal.NEWNYM)
@@ -95,7 +94,7 @@ def handle_timeout(process,onion):
         # wait for the new identity to be initialized
         time.sleep(torcontrol.get_newnym_wait())
 
-        print "[!!!] Switched TOR identities."
+        log.debug("[!!!] Switched TOR identities.")
 
     # push the onion back on to the list
     session_onions.append(onion)
@@ -145,7 +144,7 @@ def add_new_onions(new_onion_list):
 
         if linked_onion not in onions and linked_onion.endswith(".onion"):
 
-            print "[++] Discovered new .onion => %s" % linked_onion
+            log.debug("[++] Discovered new .onion => %s" % linked_onion)
 
             onions.append(linked_onion)
             session_onions.append(linked_onion)
@@ -163,6 +162,8 @@ def onionrunner(path_list_onion):
 
     # get a list of onions to process
     onions = get_onion_list(path_list_onion)
+    if onions is None:
+        return
 
     # randomize the list a bit
     random.shuffle(onions)
@@ -177,12 +178,12 @@ def onionrunner(path_list_onion):
         identity_lock.wait()
 
         # grab a new onion to scan
-        print "[*] Running %d of %d." % (count, len(onions))
+        log.debug("[*] Running %d of %d." % (count, len(onions)))
         onion = session_onions.pop()
 
         # test to see if we have already retrieved results for this onion
         if os.path.exists("onionscan_results/%s.json" % onion):
-            print "[!] Already retrieved %s. Skipping." % onion
+            log.debug("[!] Already retrieved %s. Skipping." % onion)
             count += 1
             continue
 
