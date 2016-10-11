@@ -5,10 +5,7 @@ import mongoengine
 import connect
 from ORM import collect
 
-# env var to access .json files
-files_list = glob.glob(os.environ['JSON_RESULTS']+"/*.json")
-
-def JSONtoDB():
+def JSONtoDB(files_list):
     """ browse and insert into mongoDB all json files """
 
     for json_file in files_list:
@@ -28,7 +25,7 @@ def send_db(data):
     try:
         collect.Collect(**data).save()
     except mongoengine.NotUniqueError:
-        c = collect.Collect.objects(hiddenService=data['hiddenService']).first()
-        c.update(**data)
+        col = collect.Collect.objects(hiddenService=data['hiddenService']).first()
+        col.update(**data)
     except:
         print('ERROR send to db')
