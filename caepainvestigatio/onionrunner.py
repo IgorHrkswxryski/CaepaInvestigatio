@@ -4,12 +4,14 @@ import json
 import random
 import subprocess
 import time
+import os
 
 from stem.control import Controller
 from stem import Signal
 from threading import Timer
 from threading import Event
 from caepainvestigatio import linkJSONtoDB
+from caepainvestigatio import connect
 from caepainvestigatio.logging_conf import initLogging
 
 log = initLogging()
@@ -48,10 +50,15 @@ def store_onion(onion):
 def run_onionscan(onion):
     """ Runs onion scan as a child process. """
 
-    log.debug("[*] Onionscanning %s" % onion)
+    log.debug("[*] Onionscanning " +  str(onion))
 
     # fire up onionscan
-    process = subprocess.Popen(["onionscan", "--jsonReport", "--simpleReport=false", onion], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        process = subprocess.Popen(["onionscan", "--jsonReport", "--simpleReport=false", onion],
+                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except OSError:
+        log.error("error installing onionscan")
+        return None
 
     # start the timer and let it run 5 minutes
     process_timer = Timer(300, handle_timeout, args=[process, onion])
@@ -120,7 +127,7 @@ def process_results(onion, json_response):
     linkJSONtoDB.send_db(json_response)
 
     # look for additional .onion domains to add to our scan list
-    scan_result = ur"%s" % json_response.decode("utf8")
+    scan_result = "%s" % json_response.decode("utf8")
     scan_result = json.loads(scan_result)
 
     if scan_result['linkedSites'] is not None:
@@ -187,7 +194,7 @@ def onionrunner(path_list_onion):
             count += 1
             continue
 
-        # run the onion scan	
+        # run the onion scan
         result = run_onionscan(onion)
 
         # process the results

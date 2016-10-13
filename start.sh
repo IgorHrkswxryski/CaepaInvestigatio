@@ -27,7 +27,7 @@ service tor restart
 export VIRTUALENV_PATH="/tmp/virtualenv_caepainvestigation"
 
 # create virtualenv
-virtualenv --python python3 VIRTUALENV_PATH
+virtualenv --python python3 ${VIRTUALENV_PATH}
 .${VIRTUALENV_PATH}/bin/activate
 
 # install our package
