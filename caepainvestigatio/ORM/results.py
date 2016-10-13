@@ -12,20 +12,20 @@ class Result(mongoengine.EmbeddedDocument):
     }
 
     # onion id
-    onion = mongoengine.StringField(required=True)
+    onion = mongoengine.StringField(required=True, unique=True)
 
     # check date
     date_check = mongoengine.DateTimeField(default=datetime.datetime.utcnow,
                                            required=True)
 
-    # server ip
-    server_ip = mongoengine.StringField()
+    # shodan
+    shodan_ip_result = mongoengine.DictField()
 
     # shodan
-    shodan_result = mongoengine.StringField()
+    shodan_keyssh_result = mongoengine.StringField()
 
     # cymon
-    cymon_result = mongoengine.StringField()
+    cymon_ip_result = mongoengine.DictField()
 
     # lang
     lang = mongoengine.StringField()
