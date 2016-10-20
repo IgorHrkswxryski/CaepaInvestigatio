@@ -17,7 +17,7 @@ RUN pip install stem
 
 RUN git clone https://github.com/HugoMeziani/CaepaInvestigatio.git
 RUN chmod +x CaepaInvestigatio/start.sh
-RUN chmod +x CaepaInvestigati/onionrunner.py
+RUN chmod +x CaepaInvestigatio/onionrunner.py
 
 ADD onion_master_list.txt /
 
