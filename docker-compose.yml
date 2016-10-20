@@ -2,8 +2,6 @@ collector:
     build: .
     links:
         - mongo
-    command: start_onionrunner /onion_master_list.txt
-
 mongo:
    image: mongo:3.2.4
    ports:
