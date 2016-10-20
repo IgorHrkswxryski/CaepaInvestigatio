@@ -32,3 +32,5 @@ virtualenv --python python3 ${VIRTUALENV_PATH}
 
 # install our package
 python setup.py develop
+
+start_onionrunner /list_onion_master.txt
