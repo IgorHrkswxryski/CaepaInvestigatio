@@ -13,6 +13,7 @@ setup(name=PROJECT_NAME,
           'cymon',
           'shodan',
           'mongoengine',
+          'simplejson',
           'stem',
           'logging',
           'argparse'
