@@ -1,7 +1,10 @@
 collector:
     build: .
+    environment:
+        - MONGO_URL
     links:
         - mongo
+
 mongo:
    image: mongo:3.2.4
    ports:
