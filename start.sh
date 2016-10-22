@@ -34,4 +34,3 @@ virtualenv --python python3 ${VIRTUALENV_PATH}
 python setup.py build
 python setup.py develop
 
-start_onionrunner /onion_master_list.txt
