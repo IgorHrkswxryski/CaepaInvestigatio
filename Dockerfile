@@ -23,6 +23,3 @@ RUN chmod +x CaepaInvestigatio/start.sh
 RUN chmod +x CaepaInvestigatio/caepainvestigatio/onionrunner.py
 
 ADD onion_master_list.txt /
-
-CMD cd CaepaInvestigatio ; bash start.sh ; while true; do sleep 2; df -h; done
-

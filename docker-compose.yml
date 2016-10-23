@@ -4,6 +4,7 @@ collector:
         - MONGO_URL
     links:
         - mongo
+    command: cd CaepaInvestigatio ; bash start.sh ; MONGO_URL=$$MONGO_1_PORT_27017_TCP_ADDR start_onionrunner /onion_master_list.txt
 
 mongo:
    image: mongo:3.2.4
