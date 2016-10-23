@@ -1,0 +1,14 @@
+{
+    "name": "Dashboard_TOR_Analysis",
+    "version": "1.0.0",
+    "description": "Node.js on Docker, graph analysis",
+    "author": "Thomas Aubin & Hugo Meziani",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.13.3"
+    }
+}
+
