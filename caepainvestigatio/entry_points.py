@@ -4,9 +4,8 @@ import argparse
 from caepainvestigatio import connect
 from caepainvestigatio import onionrunner
 from caepainvestigatio import linkJSONtoDB
-from caepainvestigatio.logging_conf import initLogging
+from caepainvestigatio import scan_onions
 
-log = initLogging()
 
 def run_onionscan(args=None):
     """ run scan onion """
@@ -16,9 +15,6 @@ def run_onionscan(args=None):
                         help="Initial list onions")
 
     args = parser.parse_args(args)
-
-    # TEST DEBUGGING
-    log.debug("start onionrunner")
 
     connect.connectionToDB()
     onionrunner.onionrunner(args.path)
@@ -32,9 +28,19 @@ def send_json_to_db(args=None):
 
     args = parser.parse_args(args)
 
-    log.debug("send JSON file to DB")
-
     connect.connectionToDB()
 
     linkJSONtoDB.JSONtoDB(args.path)
 
+def run_scan_onions(args=None):
+    """ scan onions data and send result to database """
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("client_shodan",
+                        help="client shodan pass")
+
+    args = parser.parse_args(args)
+
+    connect.connectionToDB()
+
+    scan_onions.scan(args.client_shodan)

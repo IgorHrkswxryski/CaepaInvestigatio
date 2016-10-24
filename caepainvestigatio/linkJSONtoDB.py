@@ -31,5 +31,5 @@ def send_db(json_response):
     except mongoengine.NotUniqueError:
         col = collect.Collect.objects(hiddenService=data['hiddenService']).first()
         col.update(**data)
-    #except:
-    #   log.error('ERROR send to db')
+    except:
+       log.error('ERROR send to db')
