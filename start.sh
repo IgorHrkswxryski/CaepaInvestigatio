@@ -18,17 +18,15 @@ go install github.com/s-rah/onionscan
 tor --hash-password coucou > torhash
 
 # configure tor
-printf "ControlPort 9051\nControlListenAddress 127.0.0.1\nHashedControlPassword %s" | cat torhash >> /etc/tor/torrc
+printf "ControlPort 9051\nControlListenAddress 127.0.0.1\nHashedControlPassword %s" $(tail -n 1 torhash) >> /etc/tor/torrc
 
 #Restart TOR socket
 service tor restart
 
 # create virtualenv
-export VIRTUALENV_PATH="/tmp/virtualenv_caepainvestigation"
-
-# create virtualenv
-virtualenv --python python3 ${VIRTUALENV_PATH}
-.${VIRTUALENV_PATH}/bin/activate
+#export VIRTUALENV_PATH="/tmp/virtualenv_caepainvestigation"
+#virtualenv ${VIRTUALENV_PATH}
+#${VIRTUALENV_PATH}/bin/activate
 
 # install our package
 python setup.py build
