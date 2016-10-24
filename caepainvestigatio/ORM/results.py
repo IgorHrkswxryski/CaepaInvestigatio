@@ -27,8 +27,11 @@ class Result(mongoengine.Document):
     # cymon
     cymon_ip_result = mongoengine.DictField()
 
+    # onion link
+    onion_link = mongoengine.ListField()
+
     # lang
-    lang = mongoengine.StringField()
+    langage = mongoengine.StringField()
 
     # category
     category = mongoengine.ListField(mongoengine.StringField())
