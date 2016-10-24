@@ -2,9 +2,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var app = express();
 
-//------------------------------------------------------------------------------
 // Databse Querying
-//------------------------------------------------------------------------------
 mongoose.connect('mongodb://localhost/test');
 
 var db = mongoose.connection;
@@ -37,9 +35,7 @@ var UserSchema = new Schema({
 // Mongoose Model definition
 var User = mongoose.model('users', UserSchema);
 
-//------------------------------------------------------------------------------
 // Send JSON files to clients
-//------------------------------------------------------------------------------
 app.use(express.static('public'));
 
 app.get('/index.html', function (req, res) {
