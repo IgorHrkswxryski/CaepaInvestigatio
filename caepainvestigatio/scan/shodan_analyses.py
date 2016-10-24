@@ -31,14 +31,11 @@ def ip_search(ip_addresses, shodan_client):
         for ip in ip_addresses:
             result = None
 
-            while True:
-                try:
-                    result = shodan_client.search(ip)
-                    break
-                except:
-                    log.warning("Can't search %s on shodan, try again in 2s\n", ip)
-                    time.sleep(2)
-                    pass
+            try:
+                result = shodan_client.search(ip)
+            except:
+                log.warning("Can't search %s on shodan\n", ip)
+                pass
 
             if result['total'] > 0:
                 log.debug("find %s on shodan", ip)
@@ -52,14 +49,11 @@ def ssh_search(sshkey, shodan_client):
     if sshkey is not None:
         result = None
 
-        while True:
-            try:
-                result = shodan_client.search(sshkey)
-                break
-            except:
-                log.warning("Can't search %s on shodan, try again in 2s\n", sshkey)
-                time.sleep(2)
-                pass
+        try:
+            result = shodan_client.search(sshkey)
+        except:
+            log.warning("Can't search %s on shodan\n", sshkey)
+            return None
 
         if result['total'] > 0:
             log.debug("find %s on shodan", sshkey)

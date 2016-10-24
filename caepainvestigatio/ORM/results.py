@@ -2,7 +2,7 @@
 import mongoengine
 import datetime
 
-class Result(mongoengine.EmbeddedDocument):
+class Result(mongoengine.Document):
     """ This class contain all result of our analysis on an onion """
 
     meta = {
