@@ -1,14 +1,20 @@
 {
     "name": "Dashboard_TOR_Analysis",
     "version": "1.0.0",
-    "description": "Node.js on Docker, graph analysis",
+    "description": "Node.js on Docker, graph analysis using cytoscape",
     "author": "Thomas Aubin & Hugo Meziani",
     "main": "server.js",
     "scripts": {
         "start": "node server.js"
     },
+    "repository" :{
+        "type" : "git",
+        "url" : "https://github.com/HugoMeziani/CaepaInvestigatio.git"
+  },
     "dependencies": {
-        "express": "^4.13.3"
-    }
+        "express": ">=4.14.0",
+        "mongoose": ">=4.6.4",
+        "cytoscape": ">=2.7.10"
+    },
+    "license" : "MIT"
 }
-
