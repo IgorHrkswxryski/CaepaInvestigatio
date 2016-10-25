@@ -16,7 +16,8 @@ setup(name=PROJECT_NAME,
           'simplejson',
           'stem',
           'logging',
-          'argparse'
+          'argparse',
+          'langdetect'
       ],
       entry_points={
           'console_scripts': [
