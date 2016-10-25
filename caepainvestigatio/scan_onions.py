@@ -21,6 +21,7 @@ def scan(shodan_client_api_key):
         log.info("find on shodan %s : %s", onion_info.hiddenService, shodan_results)
         lang = categorization.language(onion_info)
         log.info("lang detected : %s", lang)
+        category = categorization.search_category(onion_info)
 
         try:
             res = results.Result()

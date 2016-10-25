@@ -5,6 +5,7 @@ from caepainvestigatio import connect
 from caepainvestigatio import onionrunner
 from caepainvestigatio import linkJSONtoDB
 from caepainvestigatio import scan_onions
+from caepainvestigatio.ORM.categories import feed_db
 
 
 def run_onionscan(args=None):
@@ -44,3 +45,16 @@ def run_scan_onions(args=None):
     connect.connectionToDB()
 
     scan_onions.scan(args.client_shodan)
+
+def feed_category_db(args=None):
+    """ feed category collection for analyses """
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("path",
+                        help="path of file containing words")
+
+    args = parser.parse_args(args)
+
+    connect.connectionToDB()
+
+    feed_db(args.path)

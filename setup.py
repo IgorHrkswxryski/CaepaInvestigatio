@@ -24,6 +24,7 @@ setup(name=PROJECT_NAME,
               "start_onionrunner = caepainvestigatio.entry_points:run_onionscan",
               "json_to_database = caepainvestigatio.entry_points:send_json_to_db",
               "run_scan_onions = caepainvestigatio.entry_points:run_scan_onions",
+              "feed_categories = caepainvestigatio.entry_points:feed_category_db",
           ]
       }
      )
