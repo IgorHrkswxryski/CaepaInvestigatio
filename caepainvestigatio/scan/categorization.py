@@ -13,7 +13,12 @@ def language(onion_info):
     if onion_info.snapshot == "" or onion_info.snapshot is None:
         return None
 
-    lang = detect(onion_info.snapshot)
+    try:
+        lang = detect(onion_info.snapshot)
+    except:
+        log.warning("Can't determine lang")
+        return None
+
     log.info("lang detected : %s", lang)
     return lang
 
