@@ -31,7 +31,7 @@ class Result(mongoengine.Document):
     onion_link = mongoengine.ListField()
 
     # lang
-    langage = mongoengine.StringField()
+    lang = mongoengine.StringField()
 
     # category
     category = mongoengine.ListField(mongoengine.StringField())
