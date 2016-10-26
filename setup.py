@@ -16,13 +16,15 @@ setup(name=PROJECT_NAME,
           'simplejson',
           'stem',
           'logging',
-          'argparse'
+          'argparse',
+          'langdetect'
       ],
       entry_points={
           'console_scripts': [
               "start_onionrunner = caepainvestigatio.entry_points:run_onionscan",
               "json_to_database = caepainvestigatio.entry_points:send_json_to_db",
               "run_scan_onions = caepainvestigatio.entry_points:run_scan_onions",
+              "feed_categories = caepainvestigatio.entry_points:feed_category_db",
           ]
       }
      )

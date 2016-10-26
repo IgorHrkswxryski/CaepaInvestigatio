@@ -31,5 +31,5 @@ class Result(mongoengine.Document):
     lang = mongoengine.StringField()
 
     # category
-    category = mongoengine.StringField()
+    category = mongoengine.ListField(mongoengine.StringField())
 

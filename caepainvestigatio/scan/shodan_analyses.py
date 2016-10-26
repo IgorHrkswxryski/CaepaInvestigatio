@@ -11,11 +11,11 @@ def shodan_search(onion_info, shodan_client):
     """ search information in shodan """
 
     if shodan_client is None:
-        log.error("Shodan not connected\n")
+        log.error("Shodan not connected")
         return None
 
     if onion_info is None:
-        log.error("No onion send in shodan_search\n")
+        log.error("No onion send in shodan_search")
         return None
 
     result_ip = ip_search(onion_info.ipAddresses, shodan_client)
@@ -34,7 +34,7 @@ def ip_search(ip_addresses, shodan_client):
             try:
                 result = shodan_client.search(ip)
             except:
-                log.warning("Can't search %s on shodan\n", ip)
+                log.warning("Can't search %s on shodan", ip)
                 pass
 
             if result['total'] > 0:
@@ -52,7 +52,7 @@ def ssh_search(sshkey, shodan_client):
         try:
             result = shodan_client.search(sshkey)
         except:
-            log.warning("Can't search %s on shodan\n", sshkey)
+            log.warning("Can't search %s on shodan", sshkey)
             return None
 
         if result['total'] > 0:
