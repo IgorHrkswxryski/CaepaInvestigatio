@@ -39,21 +39,71 @@ edge[interaction = "cc"] {
 	width: 4;
 }
  
-node[category = "Humans"]{
+node[category = "humans"]{
 	background-color: #FACD37;
 	text-outline-color: #FACD37;
 }
+
+node[category = "mafia"]{
+	background-color: #FACD37;
+	text-outline-color: #FACD37;
+}
+
+node[category = "papers"]{
+	background-color: #FACD37;
+	text-outline-color: #FACD37;
+}
+
+node[category = "money"]{
+	background-color: #FACD37;
+	text-outline-color: #FACD37;
+}
+
+node[category = "art"]{
+	background-color: #FACD37;
+	text-outline-color: #FACD37;
+}
+
+node[category = "pedophilia"]{
+	background-color: #facd37;
+	text-outline-color: #facd37;
+}
+
+node[category = "organs"]{
+	background-color: #facd37;
+	text-outline-color: #facd37;
+}
+
+node[category = "techs"]{
+	background-color: #facd37;
+	text-outline-color: #facd37;
+}
+
+node[category = "animals"]{
+	background-color: #facd37;
+	text-outline-color: #facd37;
+}
+
+node[category = "islamist"]{
+	background-color: #facd37;
+	text-outline-color: #facd37;
+}
  
-node[category = "Porn"] {
-	background-color: white;
-	text-outline-color: white;
+node[category = "prostitution"]{
+	background-color: #FACD37;
+	text-outline-color: #FACD37;
+}
+
+node[category = "porn"] {
+	background-color: #FE2EF7;
+	text-outline-color: #FE2EF7;
 }
  
 edge[interaction = "cw"] {
 	line-color: white;
 }
  
-node[NodeType = "RedWine"] {
+node[NodeType = "weapons"] {
 	background-color: #DE3128;
 	text-outline-color: #DE3128;
 }
@@ -62,7 +112,7 @@ edge[interaction = "cr"] {
 	line-color: #DE3128;
 }
  
-node[NodeType = "Cider"] {
+node[NodeType = "drugs"] {
 	background-color: #A4EB34;
 	text-outline-color: #A4EB34;
 }

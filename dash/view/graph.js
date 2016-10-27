@@ -24,7 +24,10 @@ $(function(){
   var infoTemplate = Handlebars.compile([
     '<p class="ac-name">{{name}}</p>',
     '<p class="ac-node-type"><i class="fa fa-info-circle"></i> {{category}} {{#if lang}}({{lang}}){{/if}}</p>',
-    '{{#if shodan}}<p class="ac-node-type">{{shodan}}</p>{{/if}}',
+    '{{#if shodan_ip}}',
+    '{{#each shodan_ip}}<p class="ac-node-type">{{shodan_ip}}</p>{{/each}}',
+    '{{/if}}',
+    '{{#if shodan_keyssh}}<p class="ac-node-type">{{shodan_keyssh}}</p>{{/if}}',
     '<p class="ac-more"><i class="fa fa-external-link"></i> <a target="_blank" href="https://duckduckgo.com/?q={{name}}">More information</a></p>'
   ].join(''));
 
@@ -170,7 +173,7 @@ $(function(){
         return str.match( q );
       }
       
-      var fields = ['name', 'category', 'Country', 'Type', 'Milk'];
+      var fields = ['name'];
       
       function anyFieldMatches( n ){
         for( var i = 0; i < fields.length; i++ ){
@@ -225,14 +228,35 @@ $(function(){
   });
   
   $('#filters').on('click', 'input', function(){
-    
-    var weapons = $('#Weapons').is(':checked');
-    var humans = $('#Humans').is(':checked');
+     
+    // category
+    var weapons = $('#weapons').is(':checked');
+    var humans = $('#humans').is(':checked');
+    var drugs = $('#drugs').is(':checked');
+    var papers = $('#papers').is(':checked');
+    var mafia = $('#mafia').is(':checked');
+    var money = $('#money').is(':checked');
+    var art = $('#art').is(':checked');
+    var pedophilia = $('#pedophilia').is(':checked');
+    var organs = $('#organs').is(':checked');
+    var techs = $('#techs').is(':checked');
+    var animals = $('#animals').is(':checked');
+    var islamist = $('#islamist').is(':checked');
+    var prostitution = $('#prostitution').is(':checked');
+    var porn = $('#porn').is(':checked');
+
+    // lang
+    var fr = $('#fr').is(':checked');
+    var en = $('#en').is(':checked');
+    var de = $('#de').is(':checked');
+    var es = $('#es').is(':checked');
+    var ru = $('#ru').is(':checked');
     
     cy.batch(function(){
       
       cy.nodes().forEach(function( n ){
         var type = n.data('category');
+        var type_lang = n.data('lang');
         
         n.removeClass('filtered');
         
@@ -240,15 +264,87 @@ $(function(){
           n.addClass('filtered');
         };
         
-        if( type === 'Humans' ){
-          
-          if( !humans ){ filter(); };
-          
-        } else if( type === 'Weapons' ){
+        if( type === 'weapons' ){
 
           if( !weapons ){ filter(); };
 
+        } else if( type === 'humans' ){
+
+          if( !humans ){ filter(); };
+
+        } else if( type === 'drugs' ){
+
+          if( !drugs ){ filter(); };
+
+        } else if( type === 'papers' ){
+
+          if( !papers ){ filter(); };
+
+        } else if( type === 'mafia' ){
+
+          if( !mafia ){ filter(); };
+
+        } else if( type === 'money' ){
+
+          if( !money ){ filter(); };
+
+        } else if( type === 'art' ){
+
+          if( !art ){ filter(); };
+
+        } else if( type === 'pedophilia' ){
+
+          if( !pedophilia ){ filter(); };
+
+        } else if( type === 'organs' ){
+
+          if( !organs ){ filter(); };
+
+        } else if( type === 'techs' ){
+
+          if( !techs ){ filter(); };
+
+        } else if( type === 'animals' ){
+
+          if( !animals ){ filter(); };
+
+        } else if( type === 'islamist' ){
+
+          if( !islamist ){ filter(); };
+
+        } else if( type === 'islamist' ){
+
+          if( !protitution ){ filter(); };
+
+        } else if( type === 'porn' ){
+
+          if( !porn ){ filter(); };
+
         }
+
+
+        if( type_lang === 'fr' ){
+
+          if( !fr ){ filter(); };
+
+        } else if( type_lang === 'en' ){
+
+          if( !en ){ filter(); };
+
+        } else if( type_lang === 'de' ){
+
+          if( !de ){ filter(); };
+
+        } else if( type_lang === 'es' ){
+
+          if( !es ){ filter(); };
+
+        } else if( type_lang === 'ru' ){
+
+          if( !ru ){ filter(); };
+
+        }
+
       });
       
     });
