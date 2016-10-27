@@ -11,9 +11,9 @@ db.once('open', function() {
   console.log('Connected!');
 });
 
-var collection : db.collection("result");
+//var collection : db.collection("result");
 // Mongoose Schema definition
-/*var Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 var UserSchema = new Schema({
     // Server IP
     server_ip: String,
@@ -31,7 +31,7 @@ var UserSchema = new Schema({
     lang: String,
     // Category
     category: String
-});*/
+});
 
 // Mongoose Model definition
 var User = mongoose.model('users', UserSchema);
@@ -40,15 +40,25 @@ var User = mongoose.model('users', UserSchema);
 app.use(express.static('public'));
 
 app.get('/index.html', function (req, res) {
-   res.sendFile( __dirname + "/" + "index.html" );
+   res.sendFile( __dirname + "/view/index.html" );
+})
+
+app.get('/style.css', function (req, res) {
+   res.sendFile( __dirname + "/view/style.css" );
+})
+
+app.get('/graph.js', function (req, res) {
+   res.sendFile( __dirname + "/view/graph.js" );
 })
 
 // Send JSON files to clients
-app.get('/server.js', function (req, res) {
-    User.find({ email: req.params.email }, function (err, docs) {
-                docs=(true)
-                res.json(docs);
-            });
+app.get('/style.raw', function (req, res) {
+    res.sendFile(__dirname + "/view/style.raw")
+
+})
+
+app.get('/graph.json', function (req, res) {
+   res.sendFile( __dirname + "/view/graph.json" );
 })
 
 var server = app.listen(8080, function () {

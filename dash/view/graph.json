@@ -1,0 +1,19 @@
+{
+    "elements": {
+        "nodes": [
+            { "data": { "id": "j", "name": "Jerry",  "category": "Porn"    ,"lang": "en" }, "selected": false },
+            { "data": { "id": "e", "name": "Elaine", "category": "Pedo"    ,"lang": "en" }, "selected": false },
+            { "data": { "id": "k", "name": "Kramer", "category": "Weapons" ,"lang": "fr" }, "selected": false },
+            { "data": { "id": "g", "name": "George", "category": "Humans"  ,"lang": "fr" }, "selected": false }
+        ],
+        "edges": [
+            { "data": { "source": "j", "target": "e" }, "selected": false },
+            { "data": { "source": "j", "target": "g" }, "selected": false },
+            { "data": { "source": "e", "target": "j" }, "selected": false },
+            { "data": { "source": "k", "target": "j" }, "selected": false },
+            { "data": { "source": "k", "target": "e" }, "selected": false },
+            { "data": { "source": "k", "target": "g" }, "selected": false },
+            { "data": { "source": "g", "target": "j" }, "selected": false }
+        ]
+    }
+}
