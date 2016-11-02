@@ -1,6 +1,4 @@
-import glob
 import json
-import os
 import mongoengine
 from caepainvestigatio import connect
 from caepainvestigatio.ORM import collect
@@ -24,7 +22,9 @@ def JSONtoDB(files_list):
 
 
 def send_db(json_response):
-    data = json.loads(json_response.decode())
+    """ send data collected to mongo db """
+
+    data = json.loads(json_response.decode('utf-8', 'ignore'))
     # insert JSON files into mongoDB
     try:
         collect.Collect(**data).save()
@@ -32,4 +32,4 @@ def send_db(json_response):
         col = collect.Collect.objects(hiddenService=data['hiddenService']).first()
         col.update(**data)
     except:
-       log.error('ERROR send to db')
+        log.error('ERROR send to db')
