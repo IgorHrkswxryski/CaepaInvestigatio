@@ -19,30 +19,36 @@ log = initLogging()
 onions         = []
 session_onions = []
 
+path_list = None
+
 identity_lock  = Event()
 identity_lock.set()
 
-def get_onion_list(path_list):
+def get_onion_list():
     """ Grab the list of onions from our master list file. """
+
+    global path_list
 
     # open the master list
     if os.path.exists(path_list):
         with open(path_list, "rb") as filed:
             stored_onions = filed.read().splitlines()
     else:
-        log.error("[!] No onion master list. Download it!")
+        log.error("No onion master list. Download it!")
         return None
 
-    log.debug("[*] Total onions for scanning: %d" % len(stored_onions))
+    log.debug("Total onions for scanning: %d" % len(stored_onions))
 
     return stored_onions
 
 def store_onion(onion):
     """  Stores an onion in the master list of onions. """
 
-    log.debug("[++] Storing %s in master list." % onion)
+    global path_list
 
-    with codecs.open("onion_master_list.txt", "ab", encoding="utf8") as filed:
+    log.debug("Storing %s in master list." % onion)
+
+    with codecs.open(path_list, "ab", encoding="utf8") as filed:
         filed.write("%s\n" % onion)
 
     return
@@ -50,7 +56,7 @@ def store_onion(onion):
 def run_onionscan(onion):
     """ Runs onion scan as a child process. """
 
-    log.debug("[*] Onionscanning " +  str(onion))
+    log.debug("Onionscanning " +  str(onion))
 
     # fire up onionscan
     try:
@@ -72,7 +78,7 @@ def run_onionscan(onion):
         process_timer.cancel()
         return stdout
 
-    log.warning("[!!!] Process timed out!")
+    log.warning("Process timed out!")
 
     return None
 
@@ -85,7 +91,7 @@ def handle_timeout(process,onion):
     # kill the onionscan process
     try:
         process.kill()
-        log.debug("[!!!] Killed the onionscan process.")
+        log.debug("Killed the onionscan process.")
     except:
         pass
 
@@ -101,7 +107,7 @@ def handle_timeout(process,onion):
         # wait for the new identity to be initialized
         time.sleep(torcontrol.get_newnym_wait())
 
-        log.debug("[!!!] Switched TOR identities.")
+        log.debug("Switched TOR identities.")
 
     # push the onion back on to the list
     session_onions.append(onion)
@@ -151,12 +157,12 @@ def add_new_onions(new_onion_list):
 
         if linked_onion not in onions and linked_onion.endswith(".onion"):
 
-            log.debug("[++] Discovered new .onion => %s" % linked_onion)
+            log.debug("Discovered new .onion => %s" % linked_onion)
 
             onions.append(linked_onion)
+            store_onion(linked_onion)
             session_onions.append(linked_onion)
             random.shuffle(session_onions)
-            store_onion(linked_onion)
 
     return
 
@@ -165,10 +171,12 @@ def onionrunner(path_list_onion):
 
     global onions
     global session_onions
+    global path_list
 
 
     # get a list of onions to process
-    onions = get_onion_list(path_list_onion)
+    path_list = path_list_onion
+    onions = get_onion_list()
     if onions is None:
         return
 
@@ -178,21 +186,21 @@ def onionrunner(path_list_onion):
 
     count = 0
 
-    while count < len(onions):
+    while True:
 
         # if the event is cleared we will halt here
         # otherwise we continue executing
         identity_lock.wait()
 
         # grab a new onion to scan
-        log.debug("[*] Running %d of %d." % (count, len(onions)))
+        log.debug("Running %d of %d." % (count, len(onions)))
         onion = session_onions.pop()
 
         # test to see if we have already retrieved results for this onion
-        if os.path.exists("onionscan_results/%s.json" % onion):
-            log.debug("[!] Already retrieved %s. Skipping." % onion)
-            count += 1
-            continue
+        #if os.path.exists("onionscan_results/%s.json" % onion):
+        #    log.debug("Already retrieved %s. Skipping." % onion)
+        #    count += 1
+        #    continue
 
         # run the onion scan
         result = run_onionscan(onion)
@@ -202,4 +210,4 @@ def onionrunner(path_list_onion):
             if len(result):
                 process_results(onion, result)
 
-        count += 1
+        count = (count + 1)%len(onions)
