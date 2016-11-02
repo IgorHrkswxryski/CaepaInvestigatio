@@ -36,7 +36,6 @@ def ip_search(ip_addresses, shodan_client):
             try:
                 result = shodan_client.search(ip)
             except:
-                log.warning("Can't search %s on shodan", ip)
                 pass
 
             if result is not None and result['total'] > 0:
@@ -54,7 +53,6 @@ def ssh_search(sshkey, shodan_client):
         try:
             result = shodan_client.search(sshkey)
         except:
-            log.warning("Can't search %s on shodan", sshkey)
             return None
 
         if result is not None and result['total'] > 0:
