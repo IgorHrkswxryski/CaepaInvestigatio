@@ -20,6 +20,7 @@ def scan(shodan_client_api_key):
         shodan_results = shodan_analyses.shodan_search(onion_info, shodan_client)
         lang = categorization.language(onion_info)
         category = categorization.search_category(onion_info)
+        print(category)
         links = search_onion.search_onion(onion_info)
 
         try:
@@ -27,6 +28,7 @@ def scan(shodan_client_api_key):
             res.onion = onion_info.hiddenService
             res.shodan_ip_result = shodan_results[0]
             res.shodan_keyssh_result = shodan_results[1]
+            res.category = category
             res.lang = lang
             res.links = links
             res.save()
@@ -34,6 +36,7 @@ def scan(shodan_client_api_key):
             res = results.Result.objects(onion=onion_info.hiddenService).first()
             res.shodan_ip_result = shodan_results[0]
             res.shodan_keyssh_result = shodan_results[1]
+            res.category = category
             res.lang = lang
             res.links = links
             res.save()
