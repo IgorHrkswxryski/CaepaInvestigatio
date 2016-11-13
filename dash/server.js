@@ -27,11 +27,15 @@ db.once('open', function () {
             cb (error, 500);
         })
         .on ("data", function (record){
+            cat = "";
+            if(record.category && record.category.length > 0){
+              cat = record.category[0];
+            }
             var data = {
                 "data": {
                     "id": record.onion, 
                     "name": record.onion,
-                    "category": record.category,
+                    "category": cat,
                     "lang": record.lang,
                     "date_check": record.date_check,
                     "shodan_ip": record.shodan_ip_result,
