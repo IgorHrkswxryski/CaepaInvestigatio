@@ -12,63 +12,71 @@ var elements = graph["elements"];
 elements["nodes"] = [];
 elements["edges"] = [];
 
+
 // Databse Querying
 mongoose.connect('mongodb://localhost/TORUser');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.on('open', function () {
     console.log('Connected!');
 
-    var collection = db.collection("result");
-    var records = collection.find({});
-    records.stream()
-        .on ("error", function (error){
-            cb (error, 500);
-        })
-        .on ("data", function (record){
-            cat = "";
-            if(record.category && record.category.length > 0){
-              cat = record.category[0];
-            }
-            var data = {
-                "data": {
-                    "id": record.onion, 
-                    "name": record.onion,
-                    "category": cat,
-                    "lang": record.lang,
-                    "date_check": record.date_check,
-                    "shodan_ip": record.shodan_ip_result,
-                    "shodan_keyssh": record.shodan_keyssh_result,
-                }, "selected": false };
-    
-            elements["nodes"].push(data);
-    
-            var edges = []
-            for( link in record.onion_link){
-                edges.push( { "data":
-                    { 
-                        "source": record.onion, "target": link
-                    }, 
-                    "selected": false } );
-            }
-            elements["edges"].concat(edges);
-        })
-        .on ("end", function (){
-            console.log("finish read db");
-            graph_ok = true;
-        })
 });
+
+function create_meta_graph(){
+  var collection = db.collection("result");
+  var records = collection.find({});
+  records.stream()
+      .on ("error", function (error){
+          cb (error, 500);
+      })
+      .on ("data", function (record){
+          cat = "";
+          if(record.category && record.category.length > 0){
+            cat = record.category[0];
+          }
+          var data = {
+              "data": {
+                  "id": record.onion, 
+                  "name": record.onion,
+                  "category": cat,
+                  "lang": record.lang,
+                  "date_check": record.date_check,
+                  "shodan_ip": record.shodan_ip_result,
+                  "shodan_keyssh": record.shodan_keyssh_result,
+              }, "selected": false };
+  
+          elements["nodes"].push(data);
+  
+          var edges = []
+          for( link in record.onion_link){
+              edges.push( { "data":
+                  { 
+                      "source": record.onion, "target": link
+                  }, 
+                  "selected": false } );
+          }
+          elements["edges"].concat(edges);
+      })
+      .on ("end", function (){
+          console.log("finish read db");
+          graph_ok = true;
+      })
+}
 
 //pages
 app.use(express.static('public'));
 
 
 app.get('/index.html', function (req, res) {
+   graph_ok=false;
+   create_meta_graph();
    res.sendFile( __dirname + "/view/index.html" );
 })
 
 app.get('/', function (req, res) {
+   graph_ok=false;
+   create_meta_graph();
    res.sendFile( __dirname + "/view/index.html" );
 })
 
