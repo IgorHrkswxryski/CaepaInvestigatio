@@ -64,6 +64,10 @@ app.get('/index.html', function (req, res) {
    res.sendFile( __dirname + "/view/index.html" );
 })
 
+app.get('/', function (req, res) {
+   res.sendFile( __dirname + "/view/index.html" );
+})
+
 app.get('/style.css', function (req, res) {
    res.sendFile( __dirname + "/view/style.css" );
 })
