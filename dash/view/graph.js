@@ -230,6 +230,7 @@ $(function(){
   $('#filters').on('click', 'input', function(){
      
     // category
+    var unknown = $('#unknown').is(':checked');
     var weapons = $('#weapons').is(':checked');
     var humans = $('#humans').is(':checked');
     var drugs = $('#drugs').is(':checked');
@@ -264,7 +265,11 @@ $(function(){
           n.addClass('filtered');
         };
         
-        if( type === 'weapons' ){
+        if( type === '' ){
+
+          if( !unknown ){ filter(); };
+
+        } else if( type === 'weapons' ){
 
           if( !weapons ){ filter(); };
 
