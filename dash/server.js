@@ -49,14 +49,15 @@ function create_meta_graph(){
           elements["nodes"].push(data);
   
           var edges = []
-          for( link in record.onion_link){
-              edges.push( { "data":
-                  { 
-                      "source": record.onion, "target": link
-                  }, 
-                  "selected": false } );
+          if(record.onion_link && record.onion_link.length > 0){
+            for( link in record.onion_link){
+                elements["edges"].push( { "data":
+                    { 
+                        "source": record.onion, "target": record.onion_link[link]
+                    }, 
+                    "selected": false } );
+            }
           }
-          elements["edges"].concat(edges);
       })
       .on ("end", function (){
           console.log("finish read db");
