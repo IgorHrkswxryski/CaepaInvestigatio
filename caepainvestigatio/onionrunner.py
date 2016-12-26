@@ -129,21 +129,29 @@ def process_results(onion, json_response):
     with open("%s/%s.json" % ("onionscan_results", onion), "wb") as filed:
         filed.write(json_response)
 
-    # send output in database
-    linkJSONtoDB.send_db(json_response)
-
     # look for additional .onion domains to add to our scan list
     scan_result = "%s" % json_response.decode("utf8")
     scan_result = json.loads(scan_result)
 
-    if scan_result['linkedSites'] is not None:
-        add_new_onions(scan_result['linkedSites'])
+    if scan_result['crawls']:
+        crawls = scan_result['crawls'].keys()
+        for key in crawls:
+            scan_result['crawls'][key.replace(".", "[dot]")] = scan_result['crawls'][key]
+            del scan_result['crawls'][key]
 
-    if scan_result['relatedOnionDomains'] is not None:
-        add_new_onions(scan_result['relatedOnionDomains'])
+    # send output in database
+    linkJSONtoDB.send_db(scan_result)
 
-    if scan_result['relatedOnionServices'] is not None:
-        add_new_onions(scan_result['relatedOnionServices'])
+    if scan_result['identifierReport']:
+        identifier = scan_result['identifierReport']
+        if identifier['linkedOnions'] and identifier['linkedOnions'] is not None:
+            add_new_onions(identifier['linkedOnions'])
+
+        if identifier['relatedOnionDomains'] and identifier['relatedOnionDomains'] is not None:
+            add_new_onions(identifier['relatedOnionDomains'])
+
+        if identifier['relatedOnionServices'] and identifier['relatedOnionServices'] is not None:
+            add_new_onions(identifier['relatedOnionServices'])
 
     return
 
