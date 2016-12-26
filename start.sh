@@ -7,8 +7,8 @@ set -x
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 source /$HOME/.gvm/scripts/gvm
-gvm install go1.4 --binary
-gvm use go1.4
+gvm install go1.7 --binary
+gvm use go1.7
 
 # download et install onionscan
 go get github.com/s-rah/onionscan
@@ -21,7 +21,7 @@ tor --hash-password coucou > torhash
 printf "ControlPort 9051\nControlListenAddress 127.0.0.1\nHashedControlPassword %s" $(tail -n 1 torhash) >> /etc/tor/torrc
 
 #Restart TOR socket
-service tor restart
+/etc/init.d/tor restart
 
 # create virtualenv
 #export VIRTUALENV_PATH="/tmp/virtualenv_caepainvestigation"
