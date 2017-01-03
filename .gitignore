@@ -100,3 +100,8 @@ node_modules
 # file perso caepaInvestigation
 onion_master_list.txt
 torhash
+
+# onionscan
+onionscan_results/
+onionscandb/
+

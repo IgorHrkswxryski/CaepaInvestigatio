@@ -1,6 +1,4 @@
-import glob
 import json
-import os
 import mongoengine
 from caepainvestigatio import connect
 from caepainvestigatio.ORM import collect
@@ -20,16 +18,18 @@ def JSONtoDB(files_list):
             except:
                 log.error(json_file+".ERREUR")
                 return
-        send_db(myJSON)
+        data = json.loads(myJSON.decode('utf-8', 'ignore'))
+        send_db(data)
 
 
-def send_db(json_response):
-    data = json.loads(json_response.decode())
+def send_db(data):
+    """ send data collected to mongo db """
+
     # insert JSON files into mongoDB
     try:
         collect.Collect(**data).save()
     except mongoengine.NotUniqueError:
         col = collect.Collect.objects(hiddenService=data['hiddenService']).first()
         col.update(**data)
-    except:
-       log.error('ERROR send to db')
+    #except:
+    #    log.error('ERROR send to db')

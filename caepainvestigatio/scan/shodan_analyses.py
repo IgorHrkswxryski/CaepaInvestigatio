@@ -30,14 +30,15 @@ def ip_search(ip_addresses, shodan_client):
     if ip_addresses is not None and ip_addresses != []:
         for ip in ip_addresses:
             result = None
+            if ip == '':
+                continue
 
             try:
                 result = shodan_client.search(ip)
             except:
-                log.warning("Can't search %s on shodan", ip)
                 pass
 
-            if result['total'] > 0:
+            if result is not None and result['total'] > 0:
                 log.debug("find %s on shodan", ip)
                 shodan_result[ip] = result
 
@@ -46,16 +47,15 @@ def ip_search(ip_addresses, shodan_client):
 def ssh_search(sshkey, shodan_client):
     """ Try to find ssh key in onion info """
 
-    if sshkey is not None:
+    if sshkey is not None and sshkey != '':
         result = None
 
         try:
             result = shodan_client.search(sshkey)
         except:
-            log.warning("Can't search %s on shodan", sshkey)
             return None
 
-        if result['total'] > 0:
+        if result is not None and result['total'] > 0:
             log.debug("find %s on shodan", sshkey)
             return result
 

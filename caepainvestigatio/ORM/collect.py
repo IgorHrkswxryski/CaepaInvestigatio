@@ -26,26 +26,17 @@ class Collect(mongoengine.Document):
     # hidden service name
     hiddenService = mongoengine.StringField(required=True, unique=True)
 
+    # online
+    online = mongoengine.BooleanField()
+
+    # performed scans
+    performedScans = mongoengine.ListField()
+
     # WEB service detected
     webDetected = mongoengine.BooleanField()
 
     # TLS ciphering detected
     tlsDetected = mongoengine.BooleanField()
-
-    # pprivate key
-    privateKeyDetected = mongoengine.BooleanField()
-
-    # Skynet detected
-    skynetDetected = mongoengine.BooleanField()
-
-    # certificate
-    certificates = mongoengine.ListField()
-
-    # Time out
-    TimedOut = mongoengine.BooleanField()
-
-    # last Action
-    lastAction = mongoengine.StringField()
 
     # server SSH detected
     sshDetected = mongoengine.BooleanField()
@@ -74,59 +65,20 @@ class Collect(mongoengine.Document):
     # server xmpp detected
     xmppDetected = mongoengine.BooleanField()
 
-    # server powered by
-    serverPoweredBy = mongoengine.StringField()
+    # detect skynet   
+    skynetDetected = mongoengine.BooleanField()
 
-    # WEB server version
-    serverVersion = mongoengine.StringField()
-
-    # Apache Mod Status detected
-    foundApacheModStatus = mongoengine.BooleanField()
-
-    # related onion services
-    relatedOnionServices = mongoengine.ListField()
-
-    # related oion domains
-    relatedOnionDomains = mongoengine.ListField()
-
-    # linked sites
-    linkedSites = mongoengine.ListField()
-
-    # internal pages
-    internalPages = mongoengine.ListField()
-
-    # IP address
-    ipAddresses = mongoengine.ListField()
-
-    # open directories
-    openDirectories = mongoengine.ListField()
-
-    # exif metadata
-    exifImages = mongoengine.ListField()
-
-    # interesting files
-    interestingFiles = mongoengine.ListField()
-
-    # page refereced directories
-    pageReferencedDirectories = mongoengine.ListField()
+    # crawls
+    crawls = mongoengine.DictField()
 
     # public PGP key
     pgpKeys = mongoengine.ListField()
 
-    # hashes detected
-    hashes = mongoengine.ListField()
+    # certificates
+    certificates = mongoengine.ListField()
 
-    # content of WEB page
-    snapshot = mongoengine.StringField()
-
-    # title of WEB page
-    pageTitle = mongoengine.StringField()
-
-    # response headers
-    responseHeaders = mongoengine.DictField()
-
-    # public Bitcoin address
-    bitcoinAddresses = mongoengine.ListField()
+    # bitcoin Services
+    bitcoinServices = mongoengine.DictField()
 
     # SSK keys
     sshKey = mongoengine.StringField()
@@ -145,3 +97,18 @@ class Collect(mongoengine.Document):
 
     # SMTP banner
     smtpBanner = mongoengine.StringField()
+
+    # last Action
+    lastAction = mongoengine.StringField()
+
+    # timedOut  
+    timedOut = mongoengine.BooleanField()
+
+    # error
+    error = mongoengine.ListField()
+
+    # identifier report
+    identifierReport = mongoengine.DictField()
+
+    # simple report
+    simpleReport = mongoengine.DictField()

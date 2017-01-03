@@ -35,7 +35,7 @@ def search_category(onion_info):
                 count_w += count
                 if count_w > 2 and category not in category_find:
                     log.debug("detect category %s for onion %s", category.category, onion_info.hiddenService)
-                    category_find.append(category)
+                    category_find.append(category.category)
                     break
 
     return category_find

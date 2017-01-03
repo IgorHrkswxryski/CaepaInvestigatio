@@ -23,5 +23,7 @@ def search_onion(onion_info):
         if elem not in links and elem != onion_info.hiddenService:
             links.append(elem)
 
-    log.debug("Links find to %s", links)
+    if links != []:
+        log.debug("Links find to %s", links)
+
     return links
