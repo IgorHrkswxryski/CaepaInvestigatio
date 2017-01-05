@@ -14,6 +14,11 @@ gvm use go1.7
 go get github.com/s-rah/onionscan
 go install github.com/s-rah/onionscan
 
+# we need tiedot db to read crawls
+mkdir tiedot && cd tiedot
+export GOPATH=`pwd`  # backticks surround pwd
+go get github.com/HouzuoGuo/tiedot
+
 # tor hash
 tor --hash-password coucou > torhash
 

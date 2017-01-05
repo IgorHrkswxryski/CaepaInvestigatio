@@ -105,3 +105,6 @@ torhash
 onionscan_results/
 onionscandb/
 
+# tiedot
+tiedot/
+
