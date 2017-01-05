@@ -33,19 +33,6 @@ def send_json_to_db(args=None):
 
     linkJSONtoDB.JSONtoDB(args.path)
 
-def run_scan_onions(args=None):
-    """ scan onions data and send result to database """
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("client_shodan",
-                        help="client shodan pass")
-
-    args = parser.parse_args(args)
-
-    connect.connectionToDB()
-
-    scan_onions.scan(args.client_shodan)
-
 def feed_category_db(args=None):
     """ feed category collection for analyses """
 
