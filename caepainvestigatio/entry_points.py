@@ -4,7 +4,6 @@ import argparse
 from caepainvestigatio import connect
 from caepainvestigatio import onionrunner
 from caepainvestigatio import linkJSONtoDB
-from caepainvestigatio import scan_onions
 from caepainvestigatio.ORM.categories import feed_db
 
 

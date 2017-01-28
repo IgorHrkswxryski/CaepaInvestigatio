@@ -30,7 +30,7 @@ printf "ControlPort 9051\nControlListenAddress 127.0.0.1\nHashedControlPassword 
 
 # create virtualenv
 #export VIRTUALENV_PATH="/tmp/virtualenv_caepainvestigation"
-#virtualenv ${VIRTUALENV_PATH}
+#virtualenv -p /usr/bin/python2.7 ${VIRTUALENV_PATH}
 #${VIRTUALENV_PATH}/bin/activate
 
 # install our package
