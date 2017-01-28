@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+
+  <title>Onion analyses</title>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">-->
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="cy"></div>
+  <div id="loading">
+    <span class="fa fa-refresh fa-spin"></span>
+  </div>
+  
+  <div id="search-wrapper">
+    <input type="text" class="form-control" id="search" autofocus placeholder="Search">
+  </div>
+  
+  <div id="info">
+  </div>
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  
+  <script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
+  <!--<script src="../cytoscape.js/build/cytoscape.js"></script>-->
+  
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/2.2.3/cytoscape-qtip.js"></script>
+  
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/bluebird/1.2.2/bluebird.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+  <script src="graph.js"></script>
+  
+  <button id="reset" class="btn btn-default"><i class="fa fa-arrows-h"></i></button>
+  
+  <button id="filter" class="btn btn-default"><i class="fa fa-filter"></i></button>
+  
+  <div id="filters">
+    <strong>Categories</strong>
+    <input id="unknown" type="checkbox" checked></input><label for="soft">Unknown</label><br />
+    <input id="weapons" type="checkbox" checked></input><label for="soft">Weapons</label><br />
+    <input id="humans" type="checkbox" checked></input><label for="semi-soft">Humans</label><br />
+    <input id="drugs" type="checkbox" checked></input><label for="na">Drugs</label><br />
+    <input id="papers" type="checkbox" checked></input><label for="semi-hard">Papers</label><br />
+    <input id="mafia" type="checkbox" checked></input><label for="semi-hard">Mafia</label><br />
+    <input id="money" type="checkbox" checked></input><label for="semi-hard">Money</label><br />
+    <input id="art" type="checkbox" checked></input><label for="semi-hard">Art</label><br />
+    <input id="pedophilia" type="checkbox" checked></input><label for="semi-hard">Pedophile</label><br />
+    <input id="organs" type="checkbox" checked></input><label for="semi-hard">Organs</label><br />
+    <input id="techs" type="checkbox" checked></input><label for="semi-hard">Techs</label><br />
+    <input id="animals" type="checkbox" checked></input><label for="semi-hard">Animals</label><br />
+    <input id="islamist" type="checkbox" checked></input><label for="semi-hard">Islamist</label><br />
+    <input id="prostitution" type="checkbox" checked></input><label for="semi-hard">Prostitution</label><br />
+    <input id="porn" type="checkbox" checked></input><label for="hard">Porn</label>
+    
+    <hr />
+    
+    <strong>Lang</strong>
+    <input id="fr" type="checkbox" checked></input><label for="white">fr</label><br />
+    <input id="en" type="checkbox" checked></input><label for="red">en</label><br />
+    <input id="de" type="checkbox" checked></input><label for="red">de</label><br />
+    <input id="es" type="checkbox" checked></input><label for="red">es</label><br />
+    <input id="ru" type="checkbox" checked></input><label for="cider">ru</label>
+  </div>
+  
+</body>
+</html>
