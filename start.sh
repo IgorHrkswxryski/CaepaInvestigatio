@@ -14,6 +14,11 @@ gvm use go1.7
 go get github.com/s-rah/onionscan
 go install github.com/s-rah/onionscan
 
+# we need tiedot db to read crawls
+mkdir tiedot && cd tiedot
+export GOPATH=`pwd`  # backticks surround pwd
+go get github.com/HouzuoGuo/tiedot
+
 # tor hash
 tor --hash-password coucou > torhash
 
@@ -25,7 +30,7 @@ printf "ControlPort 9051\nControlListenAddress 127.0.0.1\nHashedControlPassword 
 
 # create virtualenv
 #export VIRTUALENV_PATH="/tmp/virtualenv_caepainvestigation"
-#virtualenv ${VIRTUALENV_PATH}
+#virtualenv -p /usr/bin/python2.7 ${VIRTUALENV_PATH}
 #${VIRTUALENV_PATH}/bin/activate
 
 # install our package
