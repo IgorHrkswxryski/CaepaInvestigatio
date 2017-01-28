@@ -122,17 +122,20 @@ def process_results(onion, json_response):
     """ Processes the JSON result from onionscan. """
 
     # create our output folder if necessary
-    if not os.path.exists("onionscan_results"):
-        os.mkdir("onionscan_results")
+    #if not os.path.exists("onionscan_results"):
+    #    os.mkdir("onionscan_results")
 
     # write out the JSON results of the scan
-    with open("%s/%s.json" % ("onionscan_results", onion), "wb") as filed:
-        filed.write(json_response)
+    #with open("%s/%s.json" % ("onionscan_results", onion), "wb") as filed:
+    #   filed.write(json_response)
 
     # look for additional .onion domains to add to our scan list
     scan_result = "%s" % json_response.decode("utf8")
     scan_result = json.loads(scan_result)
 
+    # find category here ?
+
+    # change crawls name
     if scan_result['crawls']:
         crawls = scan_result['crawls'].keys()
         for key in crawls:
